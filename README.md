@@ -1,16 +1,52 @@
-# Project 1 
 
-Your objective is to implement the LASSO regularized regression model using the Homotopy Method. You can read about this method in [this](https://people.eecs.berkeley.edu/~elghaoui/Pubs/hom_lasso_NIPS08.pdf) paper and the references therein. You are required to write a README for your project. Please describe how to run the code in your project *in your README*. Including some usage examples would be an excellent idea. You may use Numpy/Scipy, but you may not use built-in models from, e.g. SciKit Learn. This implementation must be done from first principles. You may use SciKit Learn as a source of test data.
+# LASSO Homotopy Regression
 
-You should create a virtual environment and install the packages in the requirements.txt in your virtual environment. You can read more about virtual environments [here](https://docs.python.org/3/library/venv.html). Once you've installed PyTest, you can run the `pytest` CLI command *from the tests* directory. I would encourage you to add your own tests as you go to ensure that your model is working as a LASSO model should (Hint: What should happen when you feed it highly collinear data?)
+## What does the model you have implemented do and when should it be used?
+This model implements LASSO (Least Absolute Shrinkage and Selection Operator) regression using the Homotopy Method. 
+It performs linear regression with L1 regularization, encouraging sparsity in the solution. 
+It should be used when feature selection is important or when handling highly collinear data.
 
-In order to turn your project in: Create a fork of this repository, fill out the relevant model classes with the correct logic. Please write a number of tests that ensure that your LASSO model is working correctly. It should produce a sparse solution in cases where there is collinear training data. You may check small test sets into GitHub, but if you have a larger one (over, say 20MB), please let us know and we will find an alternative solution. In order for us to consider your project, you *must* open a pull request on this repo. This is how we consider your project is "turned in" and thus we will use the datetime of your pull request as your submission time. If you fail to do this, we will grade your project as if it is late, and your grade will reflect this as detailed on the course syllabus. 
+## How did you test your model to determine if it is working reasonably correctly?
+- I created synthetic datasets with known coefficients.
+- I tested with collinear data to check if the model produces sparse solutions.
+- I wrote PyTest unit tests to ensure correct behavior.
 
-You may include Jupyter notebooks as visualizations or to help explain what your model does, but you will be graded on whether your model is correctly implemented in the model class files and whether we feel your test coverage is adequate. We may award bonus points for compelling improvements/explanations above and beyond the assignment.
+## What parameters have you exposed to users of your implementation in order to tune performance?
+- `alpha`: Regularization strength parameter to control sparsity.
 
-Put your README here. Answer the following questions.
+## Are there specific inputs that your implementation has trouble with? Given more time, could you work around these or is it fundamental?
+- Large datasets may slow down performance due to the implementation's complexity.
+- Non-linear relationships cannot be captured since the model is linear.
+- Given more time, performance improvements and automatic tuning of alpha could be added.
 
-* What does the model you have implemented do and when should it be used?
-* How did you test your model to determine if it is working reasonably correctly?
-* What parameters have you exposed to users of your implementation in order to tune performance? 
-* Are there specific inputs that your implementation has trouble with? Given more time, could you work around these or is it fundamental?
+## How to run the code
+1. Create and activate a virtual environment:
+```
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+```
+
+2. Install requirements:
+```
+pip install -r requirements.txt
+```
+
+3. Run tests:
+```
+pytest tests/
+```
+
+## Example Usage
+```
+from lasso.lasso import LassoHomotopy
+import numpy as np
+
+X = np.random.randn(100, 10)
+y = X @ np.array([1.5, -2, 0, 0, 3, 0, 0, 0, 0, 0]) + np.random.randn(100) * 0.1
+lasso = LassoHomotopy(alpha=0.5)
+lasso.fit(X, y)
+print("Coefficients:", lasso.coef_)
+```
