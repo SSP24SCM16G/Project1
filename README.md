@@ -1,4 +1,8 @@
-
+TEAM MEMBERS:
+1. SAMHITHA GOURU A20550016
+2. HARINI KORADA A20546869
+3. MAITHREYEE DOMA A20549555
+4. M. GAYTHRI RISHITHA A20563808
 # LASSO Homotopy Regression
 
 ## What does the model you have implemented do and when should it be used?
